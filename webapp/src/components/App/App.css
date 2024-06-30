@@ -1,0 +1,15 @@
+.root__container {
+  height: 100%;
+}
+
+.root-body {
+  padding-top: 56px;
+  padding-bottom: 80px;
+  height: 100vh;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
