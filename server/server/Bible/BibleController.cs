@@ -19,7 +19,7 @@ namespace MakServer.Bible
         {
             try
             {
-                var reference = await _bibleService.GetRandomReferenceAsync();
+                var reference = await _bibleService.GetRandomReferenceAsync(req.Version, req.Testament);
                 return Ok(reference);
             } 
             catch (Exception ex)
