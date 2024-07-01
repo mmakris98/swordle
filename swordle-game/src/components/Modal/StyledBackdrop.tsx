@@ -10,5 +10,5 @@ export const StyledBackdrop = styled.div`
     top: 0;
     width: 100%;
     height: 100%;
-    background: 964B00E1;
+    background: #964B00E1;
 `

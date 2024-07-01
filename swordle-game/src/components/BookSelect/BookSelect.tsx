@@ -7,12 +7,11 @@ import { bookList } from './BookList';
 
 function BookSelect(): JSX.Element {
     const { guessStore } = useRootStore();
-    const books = bookList;
     const [color, setColor] = useState<string>(null);
     
     const updateInputValue = (value: string): void => {
         guessStore.setBookGuess(value);
-        if (value === guessStore.book) {
+        if (value === guessStore.book && value !== '') {
             setColor('green')
         } else {
             setColor(null);
@@ -20,9 +19,9 @@ function BookSelect(): JSX.Element {
     };
 
     return (
-        <StyledBookSelect title='book select' color={color} onChange={e => updateInputValue(e.target.value)}>
+        <StyledBookSelect title='book select' value={guessStore.bookGuess} color={color} onChange={e => updateInputValue(e.target.value)}>
             <StyledBookSelectOption value=''></StyledBookSelectOption>
-            {books.map(book => <StyledBookSelectOption key={'bookOp-'+book} value={book}>{book}</StyledBookSelectOption>)}
+            {bookList.map(book => <StyledBookSelectOption key={'bookOp-'+book} value={book}>{book}</StyledBookSelectOption>)}
         </StyledBookSelect>
     )
 } 

@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getRandomReferenceAsync } from 'src/apis/bibleapi';
 import IReference from 'src/models/IReference';
 import { useRootStore } from 'src/stores/RootStoreProvider';
 
 export default function useReference() {
-    const {guessStore} = useRootStore();
-    const [text, setText] = useState<string>("");
+    const {guessStore, settingsStore} = useRootStore();
 
     function setStoreWithReference(ref: IReference){
-        setText(ref.text);
+        guessStore.setText(ref.text);
         guessStore.setBook(ref.book);
 
         let numbers = [];
         numbers.push(...getChapterVerseNumbers(ref.chapter));
         numbers.push(...getChapterVerseNumbers(ref.verse));
         guessStore.setNumbers(numbers);
+        guessStore.clearGuess();
     }
 
     function getChapterVerseNumbers(number: string){
@@ -29,9 +29,13 @@ export default function useReference() {
         return [first, second]
     }
 
+    async function getVerse() {
+        await getRandomReferenceAsync(settingsStore.version, settingsStore.testament).then(ref => setStoreWithReference(ref)).catch(e => console.log(e));
+    }
+
     useEffect(() => {
-        void getRandomReferenceAsync().then(ref => setStoreWithReference(ref)).catch(e => console.log(e));
+        void getVerse();
     }, [])
 
-    return { text };
+    return { getVerse };
 }

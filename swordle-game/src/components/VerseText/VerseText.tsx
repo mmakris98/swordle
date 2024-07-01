@@ -1,9 +1,15 @@
+import { observer } from 'mobx-react';
 import { StyledVerseText } from './StyledVerseText';
+import { useRootStore } from 'src/stores/RootStoreProvider';
 
-export function VerseText(props: {verseText: string}): JSX.Element {
+function VerseText(): JSX.Element {
+    const { guessStore } = useRootStore();
+    
     return (
         <StyledVerseText>
-            {props.verseText}
+            {guessStore.text}
         </StyledVerseText>
     )
 } 
+
+export default observer(VerseText);

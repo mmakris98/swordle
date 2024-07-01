@@ -6,6 +6,7 @@ import { isActualEarlierInBible } from "./GuessStoreFunctions";
 export class GuessStore {
     rootStore: RootStore;
     // actual //
+    text: string = '';
     book: string = '';
     numbers: number[] = [-1, -1, -1, -1];
     // guess //
@@ -19,6 +20,7 @@ export class GuessStore {
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         makeObservable(this, {
+            text: observable,
             book: observable,
             numbers: observable.shallow,
             bookGuess: observable,
@@ -38,6 +40,10 @@ export class GuessStore {
         this.numbers = numbers;
     });
 
+    setText = action((text: string) => {
+        this.text = text;
+    });
+
     // guess //
 
     setBookGuess = action((book: string) => {
@@ -55,13 +61,25 @@ export class GuessStore {
     removeNumber = action(() => {
         let index = this.selectedInput;
         let nums = [ ...this.numbersGuess ]
-        let emptyBox = nums[this.selectedInput] === -1;
-        nums[this.selectedInput] = -1;
-        this.numbersGuess = nums;
-        if (emptyBox){
+
+        // don't change correct ones
+        let correctBox = this.numbers[index] === nums[index];
+        if (!correctBox){
+            nums[this.selectedInput] = -1;
+            this.numbersGuess = nums;
+        }
+        
+        // don't change box if not empty
+        let emptyBox = nums[index] === -1;
+        if (emptyBox || correctBox){
             this.selectedInput = index === 0 ? 3 : index-1
         }
     });
+
+    clearGuess = action(() => {
+        this.bookGuess = '';
+        this.numbersGuess = [-1, -1, -1, -1];
+    })
 
     // selected //
 

@@ -4,16 +4,14 @@ import GuessAtempt from '../GuessAtempt/GuessAtempt';
 import Header from '../Header/Header';
 import Hint from '../Hint/Hint';
 import { Numpad } from '../Numpad/Numpad';
-import { VerseText } from '../VerseText/VerseText';
+import VerseText from '../VerseText/VerseText';
 import { StyledGameSpace } from './StyledGameSpace';
-import useReference from './useReference';
 import Modal from '../Modal/Modal';
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 
 function GameSpace(): JSX.Element {
     const { modalStore } = useRootStore();
-    const {text} = useReference();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
@@ -25,7 +23,7 @@ function GameSpace(): JSX.Element {
             {modalOpen && <Modal/>}
             <Header />
             <hr/>
-            <VerseText verseText={text}/>
+            <VerseText/>
             <hr/>
             <GuessAtempt/>
             <hr/>

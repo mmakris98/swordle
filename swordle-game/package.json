@@ -1,5 +1,5 @@
 {
-  "name": "swordle-game",
+  "name": "swordle",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
