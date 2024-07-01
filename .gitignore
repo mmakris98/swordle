@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/server/.vs/server/FileContentIndex/3835d7d8-ede6-4f40-bc05-4a7b3a3f4996.vsidx
+/server/.vs/server/v17/.suo
+/server/.vs/server/v17/DocumentLayout.json
+/server/server/obj
+/server/server/server.csproj.user
+/server/.vs
+/server/server/bin/Debug/net8.0
